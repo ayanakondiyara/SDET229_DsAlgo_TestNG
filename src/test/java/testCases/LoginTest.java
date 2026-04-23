@@ -1,6 +1,6 @@
 package testCases;
 
-import base.BaseClass;
+import BasePage.BaseClass;
 import org.testng.annotations.Test;
 import pageObjects.LoginPage;
 

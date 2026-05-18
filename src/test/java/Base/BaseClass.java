@@ -7,6 +7,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 
+import java.time.Duration;
+
 public class BaseClass {
    protected WebDriver driver;
 
@@ -17,20 +19,23 @@ public class BaseClass {
     @BeforeSuite
     public void loadConfig(){
         ConfigReader.loadProperties();
+        System.out.println("Config loaded");
     }
-    @BeforeMethod
+    @BeforeMethod // runs before EACH test method
     //@Parameters("browser")
     public void setUp() {
-        // DriverFactory.initDriver();
-        // DriverFactory.getDriver().get(ConfigReader.get("Url"));
 
-        DriverFactory.initDriver();              // creates browser based on config reader
-        driver = DriverFactory.getDriver();     // returns the browser for this thread
+        DriverFactory.initDriver();              // calls initDriver() from Driver factory to start/initialize webdriver for tests
+        driver = DriverFactory.getDriver();     // returns the started browser
         driver.get(ConfigReader.get("url"));     // opens the url
+        driver.manage().window().maximize();      // maximizes the window
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); // Applies global wait upto 5 secs before throwing NoSuchElementException
+
     }
     @AfterMethod
     public void tearDown(){        // quits the browser and remove thread local
-       DriverFactory.tearDown();
+        DriverFactory.tearDown();
+        System.out.println("Browser closed");
     }
 
 }

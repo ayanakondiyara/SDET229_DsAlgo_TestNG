@@ -53,30 +53,6 @@ public class ExcelReader {
     }
 }
 
-//    public static int getRowCount() {
-//
-//        return sheet.getLastRowNum();
-//    }
-//
-//    public static String getCellData(int row, int col) {
-//        if(sheet.getRow(row) == null) {
-//            return " ";
-//        }
-//        if(sheet.getRow(row).getCell(col) == null) {
-//            return " ";
-//        }
-//        return sheet.getRow(row).getCell(col).toString();
-//    }
-//
-//    public static void closeWorkbook() {
-//        if (workbook != null) {
-//            try {
-//                workbook.close();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
 
 

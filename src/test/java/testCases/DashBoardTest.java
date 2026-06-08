@@ -1,17 +1,36 @@
 package testCases;
 
-import BasePage.BaseClass;
+import base.BaseClass;
+import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.DashBoardPage;
+import pageObjects.HomePage;
 
 public class DashBoardTest extends BaseClass {
 
-    @Test
-    public void testGraphCreation() {
-        // using the driver inherited from BaseClass
-        DashBoardPage graphPage = new DashBoardPage(getDriver());
+private DashBoardPage DbPage;
+private HomePage home;
 
-        // eg
-        DashBoardPage.clickOnLink();
+    @BeforeMethod
+    public void setUpPages() {
+        super.setUp();
+        // Initialize page objects
+        home = new HomePage();
+        DbPage = new DashBoardPage();
+
+        // Navigate to the page where Sign in / Register exist
+           // REQUIRED before clicking Signin
     }
+    @Test
+    public void validateSigninLink(){
+        home.clickGetStartedBtn();
+        DbPage.clickSigninLink();
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"),"Singinlink did not open");
+    }
+    @Test
+    public void validateRegisterLink(){
+        DbPage.clickRegister();
+    }
+
 }

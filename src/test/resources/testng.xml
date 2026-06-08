@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="DsAlgo Suite">
+    <test name="Home Tests">
+        <classes>
+            <class name="testCases.HomeTest"/>
+        </classes>
+    </test>
+    <test name="Registration Tests">
+        <classes>
+            <class name="testCases.RegistrationTest"/>
+        </classes>
+    </test>
+
+</suite>

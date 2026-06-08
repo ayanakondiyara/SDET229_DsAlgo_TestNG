@@ -1,45 +1,40 @@
 package pageObjects;
 
-import Base.BasePage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import base.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
 
 public class HomePage extends BasePage {
 
-      public HomePage() {
-      super();
-     }
+    public HomePage() {
+        super();
+    }
     // ---------------- LOCATORS ----------------
 
-   @FindBy(xpath = "//a[contains(@href,'array') and @class='dropdown-item']")
-    WebElement dropdwnArrayElement;
+    @FindBy(xpath = "//a[@href =\"/home\"]")
+    WebElement GetStartedbtn;
 
-    @FindBy(xpath = "//div[@class='alert alert-primary']")
-    WebElement alertMsg;
+    @FindBy(xpath = "//a[@href=\"/login\"]")
+    WebElement SignInLink;
 
-    @FindBy(xpath = "//a[contains(text(),'Data Structures')]")
-    WebElement drpdwnDS;
+    @FindBy(xpath = " //a[@href=\"/register\"]")
+    WebElement RegisterLink;
 
-    // ---------------- METHODS ----------------
 
-    public void clickDropdownDS() {
-        drpdwnDS.click();
+
+//-----------------Methods-----------------------
+
+    public void clickGetStartedBtn() {
+        waitForElementToClick(GetStartedbtn, 10);
     }
 
-    public void clickDropdownElements(String drpEle) {
-        if (drpEle.equals("Arrays")) {
-            dropdwnArrayElement.click();
-        }
+    public void clickSignInLink() {
+        waitForElementToClick(SignInLink, 10);
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
     }
 
-    public String getAlertMsg() {
-       return alertMsg.getText();
+    public void clickRegisterLink() {
+        waitForElementToClick(RegisterLink, 10);
     }
 }
-
-
-
-

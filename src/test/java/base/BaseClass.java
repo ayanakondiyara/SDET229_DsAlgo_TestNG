@@ -1,11 +1,8 @@
-package Base;
+package base;
 
-import Utilities.ConfigReader;
+import utilities.ConfigReader;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.*;
 
 import java.time.Duration;
 
@@ -32,7 +29,7 @@ public class BaseClass {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); // Applies global wait upto 5 secs before throwing NoSuchElementException
 
     }
-    @AfterMethod
+    @AfterClass
     public void tearDown(){        // quits the browser and remove thread local
         DriverFactory.tearDown();
         System.out.println("Browser closed");

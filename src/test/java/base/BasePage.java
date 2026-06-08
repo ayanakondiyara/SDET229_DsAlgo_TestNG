@@ -1,4 +1,4 @@
-package Base;
+package base;
 
 import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.Alert;

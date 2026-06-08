@@ -43,13 +43,6 @@ public class RegistrationPage extends BasePage {
             usernameTxt.sendKeys(username);
     }
 
-    //public void enterValues(String username, String password) {
-        //if (username != null)
-            //usernameTxt.sendKeys(username);
-        //if (password != null)
-           // passwordTxt.sendKeys(password);
-   // }
-
     public void clickRegisterBtn() {
 
         waitForElementToClick(registerBtn, 10);

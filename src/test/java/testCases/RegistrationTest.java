@@ -64,6 +64,7 @@ public class RegistrationTest extends BaseClass {
 
         }
 
+        //Test 3
         @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
         public void verifyTooltipMsgWithOnlyPassword(Map<String, String> data) {
 
@@ -73,6 +74,7 @@ public class RegistrationTest extends BaseClass {
             Assert.assertEquals(reg.validateUsernameTooltipMsg(), "Please fill out this field.");
         }
 
+        //Test 4
         @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
         public void verifyTooltipMsgWithOnlyUsernameAndPassword(Map<String, String> data) {
 
@@ -82,16 +84,17 @@ public class RegistrationTest extends BaseClass {
             Assert.assertEquals(reg.validateConfirmPwdTooltipMsg(), "Please fill out this field.");
         }
 
-        @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
-        public void verifyTooltipMsgWithUnmatchedPassword(Map<String, String> data) {
+    //Test 5
+    @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
+    public void verifyTooltipMsgWithUnmatchedPassword(Map<String, String> data) {
 
-            if (!data.get("Scenario").equals("VerifyTooltipMsgWithUnmatchedPassword")) return;
+        if (!data.get("Scenario").equals("VerifyTooltipMsgWithUnmatchedPassword")) return;
 
-            submit(data);
+        submit(data);
 
-            String actual = alert();
-            String expected = "password_mismatch:The two password fields didn’t match.";
+        String actual = alert();
+        String expected = "password_mismatch:The two password fields didn’t match.";
 
-            Assert.assertEquals(actual, expected);
-        }
+        Assert.assertEquals(actual, expected);
+    }
     }

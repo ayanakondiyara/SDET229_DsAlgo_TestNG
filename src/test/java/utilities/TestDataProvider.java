@@ -12,7 +12,7 @@ public class TestDataProvider {
         String filePath = System.getProperty("user.dir") +
                 "/src/test/resources/TestData/TESTNG_TestData.xlsx";
 
-       ExcelReader excel = new ExcelReader(filePath, "Registration");
+        ExcelReader excel = new ExcelReader(filePath, "Registration");
         List<Map<String, String>> dataList = excel.getDataList();
 
         Object[][] data = new Object[dataList.size()][1];

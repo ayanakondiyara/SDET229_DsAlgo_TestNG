@@ -24,7 +24,7 @@ private HomePage home;
     }
     @Test
     public void validateSigninLink(){
-        home.clickGetStartedBtn();
+        home.clickMainGetStarted();
         DbPage.clickSigninLink();
         Assert.assertTrue(driver.getCurrentUrl().contains("login"),"Singinlink did not open");
     }

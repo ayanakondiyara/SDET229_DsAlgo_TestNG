@@ -13,7 +13,7 @@ public class HomePage extends BasePage {
     // ---------------- LOCATORS ----------------
 
     @FindBy(xpath = "//a[@href =\"/home\"]")
-    WebElement GetStartedbtn;
+    WebElement mainGetStartedbtn;
 
     @FindBy(xpath = "//a[@href=\"/login\"]")
     WebElement SignInLink;
@@ -25,8 +25,9 @@ public class HomePage extends BasePage {
 
 //-----------------Methods-----------------------
 
-    public void clickGetStartedBtn() {
-        waitForElementToClick(GetStartedbtn, 10);
+    public void clickMainGetStarted() {
+
+        mainGetStartedbtn.click();
     }
 
     public void clickSignInLink() {

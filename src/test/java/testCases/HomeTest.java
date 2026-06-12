@@ -14,7 +14,7 @@ public class HomeTest extends BaseClass {
         public void setUpPages() {
             super.setUp();
             home = new HomePage();
-            home.clickGetStartedBtn();
+            home.clickMainGetStarted();
             System.out.println("GetStarted Btn Clicked");
         }
 

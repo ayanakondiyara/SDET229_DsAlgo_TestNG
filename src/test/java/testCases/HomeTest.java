@@ -19,7 +19,7 @@ public class HomeTest extends BaseClass {
     public void setUp() {
 
         // FORCE driver initialization from BaseClass
-        super.setUp();   // ⚠️ only works if BaseClass has setUp()
+        super.setUp();
 
         driver.get("https://dsportalapp.herokuapp.com/home");
 

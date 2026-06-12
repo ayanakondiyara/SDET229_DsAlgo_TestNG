@@ -7,17 +7,18 @@ import org.testng.annotations.*;
 import java.time.Duration;
 
 public class BaseClass {
-   protected WebDriver driver;
+    protected WebDriver driver;
 
-   //public BaseClass(WebDriver Driver){
-     //  this.driver = driver;
-  // }
+    //public BaseClass(WebDriver Driver){
+    //  this.driver = driver;
+    // }
 
     @BeforeSuite
-    public void loadConfig(){
+    public void loadConfig() {
         ConfigReader.loadProperties();
         System.out.println("Config loaded");
     }
+
     @BeforeMethod // runs before EACH test method
     //@Parameters("browser")
     public void setUp() {
@@ -29,8 +30,9 @@ public class BaseClass {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5)); // Applies global wait upto 5 secs before throwing NoSuchElementException
 
     }
+
     @AfterClass
-    public void tearDown(){        // quits the browser and remove thread local
+    public void tearDown() {        // quits the browser and remove thread local
         DriverFactory.tearDown();
         System.out.println("Browser closed");
     }

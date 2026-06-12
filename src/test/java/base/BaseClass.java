@@ -36,5 +36,4 @@ public class BaseClass {
         DriverFactory.tearDown();
         System.out.println("Browser closed");
     }
-
 }

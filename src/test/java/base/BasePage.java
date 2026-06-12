@@ -5,6 +5,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,6 +19,9 @@ public class BasePage {
         this.driver = DriverFactory.getDriver();
         PageFactory.initElements(driver, this);
 }
+
+    @FindBy(xpath = "//a[contains(@href,'tryEditor')]")
+    private WebElement tryHereBtn;
     public WebDriverWait getWait(long timeOut) {
         return new WebDriverWait(driver, Duration.ofSeconds(timeOut));
     }

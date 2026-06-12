@@ -26,7 +26,7 @@ public class BaseClass {
 
         DriverFactory.initDriver();              // creates browser based on config reader
         driver = DriverFactory.getDriver();     // returns the browser for this thread
-        driver.get(ConfigReader.get("url"));     // opens the url
+        driver.get(ConfigReader.get("Url"));     // opens the url
     }
     @AfterMethod
     public void tearDown(){        // quits the browser and remove thread local

@@ -1,8 +1,6 @@
 package testCases;
 
-import Base.BaseClass;
-import org.testng.annotations.Test;
-import pageObjects.DSIntroductionPage;
+import base.BaseClass;
 
 public class DSIntroductionTest extends BaseClass {
 

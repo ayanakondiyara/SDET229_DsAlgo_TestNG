@@ -21,7 +21,7 @@ public class RegistrationTest extends BaseClass {
         home = new HomePage();
         reg = new RegistrationPage();
 
-        home.clickGetStartedBtn();
+        home.clickMainGetStarted();
         home.clickRegisterLink();
     }
 

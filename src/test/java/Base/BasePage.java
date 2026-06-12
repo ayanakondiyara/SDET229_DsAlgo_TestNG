@@ -1,5 +1,6 @@
-package base;
+package Base;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.jspecify.annotations.Nullable;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
@@ -9,7 +10,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
+import java.util.Map;
 
 public class BasePage {
     protected WebDriver driver;
@@ -28,23 +32,20 @@ public class BasePage {
         getWait(timeOutInSec).until(ExpectedConditions.elementToBeClickable(element)).click();
     }
 
-    public void waitForElementToDisplayed(WebElement element, long timeOutInSec) {
-        getWait(timeOutInSec).until(ExpectedConditions.visibilityOf(element));
-    }
-
-    public void waitForUrl(String expectedUrl, long timeOutInSec) {
-        getWait(timeOutInSec).until(ExpectedConditions.urlToBe(expectedUrl));
-    }
-
     public String getTooltipMsg(WebElement element) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String toolTipMsg = (String) js.executeScript("return arguments[0].validationMessage;", element);
         return toolTipMsg;
     }
 
+    public void waitForUrl(String urlText, long timeOutInSec) {
+        getWait(timeOutInSec).until(ExpectedConditions.urlToBe(urlText));
+    }
+
     public void enterCodeInEditor(String code) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("document.querySelector('.CodeMirror').CodeMirror.setValue(arguments[0]);",
+        js.executeScript(
+                "document.querySelector('.CodeMirror').CodeMirror.setValue(arguments[0]);",
                 code
         );
     }
@@ -53,11 +54,14 @@ public class BasePage {
         getWait(timeOutInSec).until(ExpectedConditions.or(ExpectedConditions.titleIs(title),
                 ExpectedConditions.titleContains(title)));
     }
-
     {
     //public List<Map<String, String>> readDataFromExcel(String sheetName, Integer rowNumber) throws IOException, InvalidFormatException {
        // ExcelReader reader = new ExcelReader();
        // return reader.getData(filePath, sheetName);
+    }
+
+    public void waitForElementToDisplayed(WebElement element, long timeOutInSec) {
+        getWait(timeOutInSec).until(ExpectedConditions.visibilityOf(element));
     }
 
     public boolean waitForPageToLoad() {
@@ -66,6 +70,7 @@ public class BasePage {
                         .equals("complete")
         );
     }
+
     public @Nullable Alert getAlert(long timeOutInSec) {
         getWait(timeOutInSec).until(ExpectedConditions.alertIsPresent());
         return driver.switchTo().alert();

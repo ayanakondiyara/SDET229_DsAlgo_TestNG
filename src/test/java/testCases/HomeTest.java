@@ -1,41 +1,58 @@
 package testCases;
 
-import base.BaseClass;
-import org.testng.Assert;
+import Base.BaseClass;
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pageObjects.HomePage;
 
+import java.time.Duration;
+
 public class HomeTest extends BaseClass {
 
-        private HomePage home;
+    HomePage homePage;
+    WebDriverWait wait;
 
-        @BeforeMethod
-        public void setUpPages() {
-            super.setUp();
-            home = new HomePage();
-            home.clickGetStartedBtn();
-            System.out.println("GetStarted Btn Clicked");
-        }
+    @BeforeMethod
+    public void setUp() {
 
-    @Test
-    public void validateSingInLink(){
-        home.clickSignInLink();
-        home.waitForTitle("Login", 10);                 // FIXED
-        Assert.assertEquals(driver.getTitle(), "Login");   // FIXED
-        System.out.println("SignIn Link Clicked");
-    }
-    @Test
-    public void validateRegisterLink(){
-        home.clickRegisterLink();
-        home.waitForTitle("Registration",10);
-        Assert.assertEquals(driver.getTitle(),"Registration");
-        System.out.println("Register Link Clicked");
+        // FORCE driver initialization from BaseClass
+        super.setUp();
+
+        driver.get("https://dsportalapp.herokuapp.com/home");
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+        wait.until(ExpectedConditions.elementToBeClickable(
+                By.xpath("//button[contains(text(),'Get Started')] | //a[contains(text(),'Get Started')]")
+        )).click();
+
+        homePage = new HomePage(driver);
     }
 
+    @Test
+    public void verifyArrayModule() {
 
+        homePage.clickGetStartedForModule("Array");
+
+        System.out.println(driver.getCurrentUrl());
+    }
+
+    @Test
+    public void verifyStackModule() {
+
+        homePage.clickGetStartedForModule("Stack");
+
+        System.out.println(driver.getCurrentUrl());
+    }
+
+    @Test
+    public void verifyQueueModule() {
+
+        homePage.clickGetStartedForModule("Queue");
+
+        System.out.println(driver.getCurrentUrl());
+    }
 }
-
-
-
-

@@ -1,0 +1,15 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="DSAlgo Suite">
+
+    <listeners>
+        <listener class-name="listeners.AllureListener"/>
+    </listeners>
+
+    <test name="Home Tests">
+        <classes>
+            <class name="testCases.HomeTest"/>
+        </classes>
+    </test>
+
+</suite>

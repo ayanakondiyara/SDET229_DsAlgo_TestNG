@@ -1,8 +1,6 @@
 package testCases;
 
-import Base.BaseClass;
-import org.testng.annotations.Test;
-import pageObjects.GraphPage;
+import base.BaseClass;
 
 public class GraphTest extends BaseClass {
 

@@ -1,158 +1,40 @@
 package pageObjects;
 
-import Base.BasePage;
-import org.openqa.selenium.WebDriver;
+import base.BasePage;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-
-import java.sql.Driver;
+import org.testng.Assert;
 
 public class HomePage extends BasePage {
 
-    public HomePage(WebDriver Driver) {
+    public HomePage() {
         super();
     }
+    // ---------------- LOCATORS ----------------
 
-    // ---------------- Dropdown Elements ----------------
+    @FindBy(xpath = "//a[@href =\"/home\"]")
+    WebElement GetStartedbtn;
 
-    @FindBy(xpath = "//a[contains(@href,'array') and @class='dropdown-item']")
-    WebElement dropdwnArrayElement;
+    @FindBy(xpath = "//a[@href=\"/login\"]")
+    WebElement SignInLink;
 
-    @FindBy(xpath = "//a[contains(@href,'list') and @class='dropdown-item']")
-    WebElement dropdwnListElement;
+    @FindBy(xpath = " //a[@href=\"/register\"]")
+    WebElement RegisterLink;
 
-    @FindBy(xpath = "//a[contains(@href,'stack') and @class='dropdown-item']")
-    WebElement dropdwnStackElement;
 
-    @FindBy(xpath = "//a[contains(@href,'que') and @class='dropdown-item']")
-    WebElement dropdwnQueElement;
 
-    @FindBy(xpath = "//a[contains(@href,'tree') and @class='dropdown-item']")
-    WebElement dropdwnTreeElement;
+//-----------------Methods-----------------------
 
-    @FindBy(xpath = "//a[contains(@href,'graph') and @class='dropdown-item']")
-    WebElement dropdwnGraphElement;
-
-    @FindBy(xpath = "//button[text()='Get Started']")
-    WebElement mainGetStartedBtn;
-
-    // ---------------- Main Dropdown ----------------
-
-    @FindBy(xpath = "//a[contains(text(),'Data Structures')]")
-    WebElement drpdwnDS;
-
-    // ---------------- Alert Message ----------------
-
-    @FindBy(xpath = "//div[@class='alert alert-primary']")
-    WebElement alertMsg;
-
-    // ---------------- Get Started Buttons ----------------
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[1]")
-    WebElement btnDsGetStarted;
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[2]")
-    WebElement btnArrGetStarted;
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[3]")
-    WebElement btnlistGetStarted;
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[4]")
-    WebElement btnStackGetStarted;
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[5]")
-    WebElement btnQueGetStarted;
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[6]")
-    WebElement btnTreeGetStarted;
-
-    @FindBy(xpath = "(//a[text()='Get Started'])[7]")
-    WebElement btnGraphGetStarted;
-
-    // ---------------- Methods ----------------
-
-    public void clickDropdownDS() {
-        waitForElementToClick(drpdwnDS, 10);
+    public void clickGetStartedBtn() {
+        waitForElementToClick(GetStartedbtn, 10);
     }
 
-    public void clickMainGetStarted() {
-        mainGetStartedBtn.click();
+    public void clickSignInLink() {
+        waitForElementToClick(SignInLink, 10);
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
     }
 
-    public void clickDropdownElements(String drpEle) {
-
-        switch (drpEle) {
-
-            case "Arrays":
-                waitForElementToClick(dropdwnArrayElement, 10);
-                break;
-
-            case "Linked List":
-                waitForElementToClick(dropdwnListElement, 10);
-                break;
-
-            case "Stack":
-                waitForElementToClick(dropdwnStackElement, 10);
-                break;
-
-            case "Queue":
-                waitForElementToClick(dropdwnQueElement, 10);
-                break;
-
-            case "Tree":
-                waitForElementToClick(dropdwnTreeElement, 10);
-                break;
-
-            case "Graph":
-                waitForElementToClick(dropdwnGraphElement, 10);
-                break;
-
-            default:
-                throw new IllegalArgumentException("Invalid Element");
-        }
-    }
-
-    public void clickGetStartedBtn(String module) {
-
-        switch (module) {
-
-            case "Data Structures - Introduction":
-                waitForElementToClick(btnDsGetStarted, 10);
-                break;
-
-            case "Array":
-                waitForElementToClick(btnArrGetStarted, 10);
-                break;
-
-            case "Linked List":
-                waitForElementToClick(btnlistGetStarted, 10);
-                break;
-
-            case "Stack":
-                waitForElementToClick(btnStackGetStarted, 10);
-                break;
-
-            case "Queue":
-                waitForElementToClick(btnQueGetStarted, 10);
-                break;
-
-            case "Tree":
-                waitForElementToClick(btnTreeGetStarted, 10);
-                break;
-
-            case "Graph":
-                waitForElementToClick(btnGraphGetStarted, 10);
-                break;
-
-            default:
-                throw new IllegalArgumentException("Invalid Element");
-        }
-    }
-
-    public String getAlertMsg() {
-        return alertMsg.getText();
-    }
-
-    public void clickGetStartedForModule(String array) {
+    public void clickRegisterLink() {
+        waitForElementToClick(RegisterLink, 10);
     }
 }

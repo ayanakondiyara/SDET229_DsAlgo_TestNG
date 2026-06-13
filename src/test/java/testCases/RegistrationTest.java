@@ -1,112 +1,100 @@
 package testCases;
 
-import Base.BaseClass;
-import Base.BasePage;
+import base.BaseClass;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import pageObjects.HomePage;
 import pageObjects.RegistrationPage;
+import utilities.TestDataProvider;
+import java.util.Map;
 
 public class RegistrationTest extends BaseClass {
+
     private RegistrationPage reg;
+    private HomePage home;
+
     @BeforeMethod
-    public void initPages(){
+    public void setUpPages() {
         super.setUp();
+
+        home = new HomePage();
         reg = new RegistrationPage();
 
+        home.clickGetStartedBtn();
+        home.clickRegisterLink();
     }
 
-   @DataProvider(name = "emptyFields")
-    public Object[][] emptyFields(){
-        return new Object[][]{
-            {"","","","Please fill out this field."}
-        };
+    private void submit(Map<String, String> data) {
+        reg.register(
+                data.get("Username"),
+                data.get("Password"),
+                data.get("Confirm Password")
+        );
     }
 
-    @DataProvider(name = "OnlyUsername")
-    public Object[][] OnlyUsername(){
-        return new Object[][]{
-                {"Sgs@gmail","Please fill out this field."}
-        };
+    private String alert() {
+        return reg.waitForAlertMessage();
     }
 
-    @DataProvider(name = "UsernameAndPassword")
-    public Object[][] UsernameAndPassword(){
-        return new Object[][]{
-                {"Sgs@gmail","Stars123","Please fill out this field."}
-        };
+    //Test 1
+    @Test(dataProvider = "RegistrationData", dataProviderClass = TestDataProvider.class)
+    public void verifySuccessfulRegistration(Map<String, String> data) {
+
+        if (!data.get("Scenario").equals("verifySuccessfulRegistration")) return;
+
+        submit(data);
+
+        String actual = alert();
+        String expected = "New Account Created. You are logged in as " + data.get("Username");
+
+        Assert.assertEquals(actual, expected);
+        Assert.assertEquals(driver.getTitle(), "NumpyNinja");
     }
 
-    @DataProvider(name = "MismatchedPassword")
-    public Object[][] MismatchedPassword(){
-        return new Object[][]{
-                {"Sgs@gmail","Stars123","strr234","password_mismatch:The two password fields didn’t match."}
-        };
-    }
+    //Test 2
+        @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
+        public void verifyTooltipMsgWithOnlyUsername(Map<String, String> data) {
 
-    @DataProvider(name = "invalidUsernames")
-    public Object[][] invalidUsernames() {
-        return new Object[][]{
-                {"}}}}}}}}}}}}}}", "Stars@123", "Stars@123", "password_mismatch:The two password fields didn’t match."},
-                {"**************", "Stars@123", "Stars@123", "password_mismatch:The two password fields didn’t match."},
-                {"%%%!!!!4555", "Stars@123", "Stars@123", "password_mismatch:The two password fields didn’t match."},
-                {"?????????]]]]", "**&^{{{{{Stars@123}}}}}", "**&^{{{{{Stars@123}}}}}", "password_mismatch:The two password fields didn’t match."}
-        };
-    }
+            if (!data.get("Scenario").equals("VerifyTooltipMsgWithOnlyUsername")) return;
 
-    @DataProvider(name = "ValidFields")
-    public Object[][] ValidFields(){
-        return new Object[][]{
-                {"Sgs@gmail", "Stars123", "strr234", "New Account Created. You are logged in as <Username> "}
-        };
-    }
+            submit(data);
+            Assert.assertEquals(reg.validatePasswordTooltipMsg(), "Please fill out this field.");
+            String actualTooltip = reg.validatePasswordTooltipMsg();
 
-    @Test(dataProvider = "emptyFields")
-    public void verifyTooltipMsgWhenAllFieldsEmpty(String username, String password, String confirmPwd, String expectedTooltip) {
-        reg.enterValues(username, password, confirmPwd);
-        reg.clickRegisterBtn();
-        Assert.assertEquals(reg.validateUsernameTooltipMsg(), expectedTooltip);
-    }
-
-    @Test(dataProvider = "OnlyUsername")
-    public void verifyTooltipMsgWhenOnlyUsernameEntered(String username,String expectedTooltip) {
-        reg.enterUsername(username);
-        reg.clickRegisterBtn();
-        Assert.assertEquals(reg.validateUsernameTooltipMsg(), expectedTooltip);
-    }
-
-    @Test(dataProvider = "UsernameAndPassword")
-    public void verifyTooltipMsgWhenUsernameAndPasswordEntered(String username,String password,String confirmPwd,String expectedTooltip) {
-        reg.enterValues(username,password,confirmPwd );
-        reg.clickRegisterBtn();
-        Assert.assertEquals(reg.validateUsernameTooltipMsg(), expectedTooltip);
-    }
-
-    @Test(dataProvider = "MismatchedPassword")
-    public void verifyTooltipMsgWhenMismatchedPasswordEntered(String username,String password,String confirmPwd,String expectedTooltip) {
-        reg.enterValues(username,password,confirmPwd);
-        reg.clickRegisterBtn();
-        Assert.assertEquals(reg.validateUsernameTooltipMsg(), expectedTooltip);
-    }
-
-
-        @Test(dataProvider ="invalidUsernames")
-        public void verifyTooltipMsgWheninvalidUsernamesEntered(String username, String password, String confirmPwd, String expectedTooltip){
-
-            reg.enterValues(username, password, confirmPwd);
-            reg.clickRegisterBtn();
-            Assert.assertEquals(reg.validateUsernameTooltipMsg(), expectedTooltip);
         }
 
+        //Test 3
+        @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
+        public void verifyTooltipMsgWithOnlyPassword(Map<String, String> data) {
 
+            if (!data.get("Scenario").equals("VerifyTooltipMsgWithOnlyPassword")) return;
 
-    @Test(dataProvider = "ValidFields")
-    public void verifyUserAbleToCreateAccount(String username,String password,String confirmPwd,String expectedTooltip) {
-        reg.enterValues(username,password,confirmPwd);
-        reg.clickRegisterBtn();
-        Assert.assertEquals(reg.validateUsernameTooltipMsg(), expectedTooltip);
+            submit(data);
+            Assert.assertEquals(reg.validateUsernameTooltipMsg(), "Please fill out this field.");
+        }
+
+        //Test 4
+        @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
+        public void verifyTooltipMsgWithOnlyUsernameAndPassword(Map<String, String> data) {
+
+            if (!data.get("Scenario").equals("VerifyTooltipMsgWithOnlyUsernameAndPassword")) return;
+
+            submit(data);
+            Assert.assertEquals(reg.validateConfirmPwdTooltipMsg(), "Please fill out this field.");
+        }
+
+    //Test 5
+    @Test(dataProvider = "RegistrationData",dataProviderClass = TestDataProvider.class)
+    public void verifyTooltipMsgWithUnmatchedPassword(Map<String, String> data) {
+
+        if (!data.get("Scenario").equals("VerifyTooltipMsgWithUnmatchedPassword")) return;
+
+        submit(data);
+
+        String actual = alert();
+        String expected = "password_mismatch:The two password fields didn’t match.";
+
+        Assert.assertEquals(actual, expected);
     }
-}
-
-
+    }

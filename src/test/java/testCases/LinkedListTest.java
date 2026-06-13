@@ -1,8 +1,6 @@
 package testCases;
 
-import Base.BaseClass;
-import org.testng.annotations.Test;
-import pageObjects.LinkedListPage;
+import base.BaseClass;
 
 public class LinkedListTest extends BaseClass {
 

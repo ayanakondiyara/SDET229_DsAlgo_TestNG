@@ -1,12 +1,14 @@
 package pageObjects;
 
-import Base.BasePage;
-import org.openqa.selenium.WebDriver;
+import base.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class RegistrationPage extends BasePage {
     public RegistrationPage(){
+
         super();
     }
 //------------- Locators-----------
@@ -28,7 +30,6 @@ public class RegistrationPage extends BasePage {
 
  //------------Methods----------------
 
-
     public void enterValues(String username, String password, String confirmPwd) {
         if (username != null)
             usernameTxt.sendKeys(username);
@@ -42,31 +43,46 @@ public class RegistrationPage extends BasePage {
             usernameTxt.sendKeys(username);
     }
 
-    public void enterValues(String username, String password) {
-        if (username != null)
-            usernameTxt.sendKeys(username);
-        if (password != null)
-            passwordTxt.sendKeys(password);
-    }
-
     public void clickRegisterBtn() {
+
         waitForElementToClick(registerBtn, 10);
     }
 
     public String validateUsernameTooltipMsg() {
+
         return getTooltipMsg(usernameTxt);
     }
 
     public String validatePasswordTooltipMsg() {
+
         return getTooltipMsg(passwordTxt);
     }
 
     public String validateConfirmPwdTooltipMsg() {
+
         return getTooltipMsg(confirmPwdTxt);
     }
 
     public void clickLoginInRegForm() {
+
         waitForElementToClick(loginLink, 10);
     }
+
+    public void register(String username, String password, String confirmPwd) {
+        enterValues(username, password, confirmPwd);
+        clickRegisterBtn();
+    }
+
+    public void enterValues(WebElement element, String value) {
+        element.clear();
+        element.sendKeys(value == null ? "" : value);
+    }
+
+    public String waitForAlertMessage() {
+        return getWait(10)
+                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@role='alert']")))
+                .getText();
+    }
+
 }
 

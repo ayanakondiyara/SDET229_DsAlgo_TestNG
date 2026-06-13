@@ -5,6 +5,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,6 +14,9 @@ import java.time.Duration;
 
 public class BasePage {
     protected WebDriver driver;
+
+    @FindBy(xpath = "//a[contains(@href,'tryEditor')]")
+    private WebElement tryHereBtn;
 
     public BasePage() {
         this.driver = DriverFactory.getDriver();
@@ -69,6 +73,15 @@ public class BasePage {
     public @Nullable Alert getAlert(long timeOutInSec) {
         getWait(timeOutInSec).until(ExpectedConditions.alertIsPresent());
         return driver.switchTo().alert();
+    }
+    public void openSubModuleByName(String subModuleName) {
+    }
+
+    public void clickTryHere() {
+        waitForElementToClick(tryHereBtn, 10);
+    }
+
+    public void clickPracticeQuestions() {
     }
 
 }

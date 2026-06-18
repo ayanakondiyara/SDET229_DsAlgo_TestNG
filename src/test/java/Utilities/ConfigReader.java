@@ -1,20 +1,27 @@
 package Utilities;
 
-import java.io.InputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.Properties;
 
 public class ConfigReader {
-    private Properties prop;
+    private static Properties prop;
 
-    public Properties init_prop() {
-        prop = new Properties();
+    public static void loadProperties() {
         try {
-            // the ClassLoader is used to find the file from the resources folder
-            InputStream ip = getClass().getClassLoader().getResourceAsStream("config.properties");
-            prop.load(ip);
-        } catch (Exception e) {
+            FileInputStream fis = new FileInputStream("src/test/resources/config/config.properties");
+            prop = new Properties();
+            prop.load(fis);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        return prop;
+
     }
+    public static String get(String key) {
+        if (prop == null) {
+            loadProperties();
+        }
+        return prop.getProperty(key);
+    }
+
 }

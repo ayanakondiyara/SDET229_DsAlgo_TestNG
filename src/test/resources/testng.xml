@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+
+<!--
+    testng.xml — DSAlgo Test Suite configuration.
+
+    HOW TO RUN:
+      IntelliJ: right-click this file → Run
+      Maven:    mvn test -DsuiteXmlFile=testng.xml
+
+    PARALLEL MODES (currently off):
+      To enable parallel runs, change the <suite> tag to:
+        <suite name="..." parallel="tests" thread-count="3">
+      DriverFactory uses ThreadLocal so parallel runs are safe.
+
+    ADDING A NEW MODULE:
+      Copy the pattern of any <test> block below.
+      Add the new test class. That's it.
+-->
+
+<suite name="DSAlgo Test Suite" verbose="1">
+
+    <!--
+        LISTENERS:
+          AllureListener              → screenshot on every test failure
+          RetryAnnotationTransformer  → retries every failed test up to 2 times
+    -->
+    <listeners>
+        <listener class-name="listeners.AllureListener"/>
+        <listener class-name="listeners.RetryAnnotationTransformer"/>
+    </listeners>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LOGIN MODULE
+         Tests: valid login, invalid password, data-driven from Excel
+    ═══════════════════════════════════════════════════════════════ -->
+    <test name="Login Tests">
+        <classes>
+            <class name="testCases.LoginTest"/>
+        </classes>
+    </test>
+    <test name="Array Tests">
+    <classes>
+        <class name="testCases.ArrayTest"/>
+    </classes>
+    </test>
+    <test name="Linked List">
+        <classes>
+            <class name="testCases.LinkedListTest"/>
+        </classes>
+    </test>
+
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         ARRAY MODULE
+         Tests: page heading, sub-module links, Try Editor (valid+invalid),
+                practice questions navigation and count
+    ═══════════════════════════════════════════════════════════════ -->
+    <!--<test name="Array Tests">
+        <classes>
+            <class name="testCases.ArrayTest"/>
+            <class name="testCases.PracticeQuestionsTest"/>
+        </classes>
+    </test> -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════════
+         LINKED LIST MODULE
+         Tests: page heading, 7 sub-module links, Try Editor for each
+                sub-module (valid+invalid), blank practice page
+         NOTE: /linked-list/practice is BLANK — no question tests here
+    ═══════════════════════════════════════════════════════════════ -->
+    <!-- <test name="Linked List Tests">
+        <classes>
+            <class name="testCases.LinkedListTest"/>
+        </classes>
+    </test> -->
+
+    <!--
+        TEMPLATE — add new modules here following this pattern:
+
+        <test name="Stack Tests">
+            <classes>
+                <class name="testCases.StackTest"/>
+            </classes>
+        </test>
+
+        <test name="Queue Tests">
+            <classes>
+                <class name="testCases.QueueTest"/>
+            </classes>
+        </test>
+
+        <test name="Tree Tests">
+            <classes>
+                <class name="testCases.TreeTest"/>
+            </classes>
+        </test>
+    -->
+
+</suite>

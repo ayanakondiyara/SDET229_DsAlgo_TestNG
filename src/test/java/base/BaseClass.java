@@ -1,40 +1,39 @@
 package base;
 
+import Utilities.ConfigReader;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Parameters;
+import org.testng.annotations.BeforeSuite;
+
+import java.time.Duration;
 
 public class BaseClass {
-    // ThreadLocal is used to make sure that each thread has its own driver instance
-    public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<>();
+    protected WebDriver driver;
 
-    @Parameters("browser")
+    //public BaseClass(WebDriver Driver){
+    //  this.driver = driver;
+    // }
+
+    @BeforeSuite
+    public void loadConfig(){
+        ConfigReader.loadProperties();
+    }
     @BeforeMethod
-    public void setup(String browserName) {
-        if (browserName.equalsIgnoreCase("chrome")) {
-            tlDriver.set(new ChromeDriver());
-        } else if (browserName.equalsIgnoreCase("firefox")) {
-            tlDriver.set(new FirefoxDriver());
-        } else if (browserName.equalsIgnoreCase("edge")) {
-            tlDriver.set(new EdgeDriver());
-        }
+    public void setUp() {
+        // DriverFactory.initDriver();
+        // DriverFactory.getDriver().get(ConfigReader.get("Url"));
 
-        getDriver().get("https://dsportalapp.herokuapp.com/");
-        getDriver().manage().window().maximize();
+        base.DriverFactory.initDriver();              // creates browser based on config reader
+        driver = base.DriverFactory.getDriver();     // returns the browser for this thread
+        driver.get(ConfigReader.get("url"));     // opens the url
+        driver.manage().window().maximize();      //  maximise window
+        driver.manage().timeouts()
+                .implicitlyWait(Duration.ofSeconds(5)); // global wait
     }
-
-    // Helper method to get the driver
-    public static WebDriver getDriver() {
-        return tlDriver.get();
-    }
-
     @AfterMethod
-    public void tearDown() {
-        getDriver().quit();
-        tlDriver.remove(); // to clean up the thread
+    public void tearDown(){        // quits the browser and remove thread local
+        base.DriverFactory.tearDown();
     }
+
 }

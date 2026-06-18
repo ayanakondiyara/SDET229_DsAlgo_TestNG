@@ -1,1 +1,0 @@
-{"uuid":"179428f2-370e-4d6c-82a7-082783bcfeed","name":"base.BaseClass.setUp","children":["4128b89d-004f-4020-b50f-3c6efac2f978"],"description":"","befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1778983265693,"stop":1778983267198}],"afters":[],"start":1778983265693,"stop":1778983267198}
